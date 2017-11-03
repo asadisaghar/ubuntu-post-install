@@ -33,3 +33,10 @@ cd ~
 cd ~/.virtualenvs/dl4cv/lib/python3.5/site-packages/
 ln -s /usr/local/lib/python3.5/site-packages/cv2.cpython-35m-x86_64-linux-gnu.so cv2.so
 cd ~
+
+#install some other computer vision, image processing, and machine learning libraries
+pip install scipy matplotlib pillow
+pip install imutils h5py requests progressbar2
+pip install scikit-learn scikit-image
+pip install tensorflow
+pip install keras
