@@ -1,3 +1,7 @@
+#The libcupti-dev library, which is the NVIDIA CUDA Profile Tools Interface. 
+#This library provides advanced profiling support. 
+sudo apt-get install -y libcupti-dev
+
 # install bazel
 sudo apt-get install openjdk-8-jdk
 sudo add-apt-repository ppa:webupd8team/java
@@ -7,27 +11,12 @@ curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add -
 sudo apt-get update && sudo apt-get install bazel
 sudo apt-get -y upgrade bazel
 
+# install python dependencies
+sudo apt-get install -y python-numpy python-dev python-pip python-wheel
+
 #clone tensorflow and configure it
 git clone https://github.com/tensorflow/tensorflow.git
 ./configure
 #answer questions!
-export flags=” — config=opt — config=cuda -k”
 
-# install numpy
-sudo pip2 install numpy
-
-# follow this - https://github.com/yaroslavvb/tensorflow-community-wheels
-tmux new-session -s bazel -n 0
-cd ~/tensorflow
-source activate bazel-tensorflow
-
-export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH"
-export flags="--config=opt --config=cuda -k"
-export tag=xlamem
-export date=feb22
-
-bazel build $flags -k //tensorflow/tools/pip_package:build_pip_package
-bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
-mkdir -p ~/tfbins/$date.$tag
-cp `find /tmp/tensorflow_pkg -type f ` ~/tfbins/$date.$tag
-bazel test $flags //tensorflow/...
+bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
