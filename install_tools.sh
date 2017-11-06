@@ -3,6 +3,7 @@ apt-get -y upgrade
 
 #first things first
 apt-get install -y emacs
+apt-get install -y chromium-browser
 
 #install some necessary development tools, image/video I/O, GUI operations etc.
 apt-get install build-essential cmake git unzip pkg-config
