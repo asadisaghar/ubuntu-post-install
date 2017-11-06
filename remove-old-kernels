@@ -1,0 +1,106 @@
+#! /usr/bin/perl
+#
+# This script automates the process of removing old kernel packages.
+# It looks at the contents of /lib/modules to identify installed (or
+# partially installed) kernel versions. It also runs uname -r to
+# determine the current kernel version and flavour.
+#
+# The script will NOT remove the currently running kernel or any
+# associated modules and headers.
+#
+# The script will also NOT remove dependencies of any installed unversioned
+# linux-image packages.
+#
+use strict;
+use warnings;
+
+use Getopt::Long qw(:config no_ignore_case);
+use POSIX qw(uname);
+
+my $dry_run = 0;
+my $quiet   = 0;
+my $verbose = 0;
+my $yes     = 0;
+
+GetOptions ('n|dry-run!' => \$dry_run,
+	    'q|quiet!'   => \$quiet,
+	    'v|verbose!' => \$verbose,
+	    'y|yes!'     => \$yes);
+
+my @yes = ();
+push (@yes, '--yes') if ($yes);
+
+my ($sysname, $nodename, $release, $version, $machine) = uname;
+if ($sysname ne 'Linux') {
+	die "This script only works on Linux systems\n";
+}
+if (!defined($release) or $release eq '') {
+	die "Could not determine the current kernel version\n";
+}
+if ($verbose) {
+	printf "Running on %s %s\n", $sysname, $release;
+}
+
+# Determine installed versions
+opendir(my $dh, "/lib/modules")
+	or die "Could not read the /lib/modules directory\n";
+my @versions = grep { $_ ne '.' and $_ ne '..' and -d "/lib/modules/$_" }
+	readdir($dh);
+closedir($dh);
+if ($verbose) {
+	print "Found versions: ", join(' ', @versions), "\n";
+}
+
+# Examine each version in turn
+foreach my $v (@versions) {
+	if ($v eq $release) {
+		if ($verbose) {
+			print "Skipping currently running version\n";
+		}
+		next;
+	}
+	open FH, '-|', '/usr/bin/aptitude', 'search', '-F', '%r# %p#', 
+		       '--disable-columns', "~i$v"
+		or do {
+			warn "Search for version $v failed: $!; skipping\n"
+				unless ($quiet);
+			next;
+		};
+	my @pkgs = ();
+	my @dependencies = ();
+	while (<FH>) {
+		chomp;
+		my ($r, $p) = split(' ');
+		if ($r > 0 and $p =~ /^linux-image-/) {
+			push (@dependencies, $p);
+		}
+		push (@pkgs, $p);
+	}
+	close FH;
+	DEPENDENCY: foreach my $p (@dependencies) {
+		open FH, '-|', '/usr/bin/aptitude', 'search', '-F', '%p#', "~i~D$p"
+			or do {
+				warn "Couldn't get dependents of package $p: $!; skipping\n";
+				@pkgs = ();
+				last DEPENDENCY;
+			};
+		while (my $q = <FH>) {
+			chomp($q);
+			$q =~ s/\s*$//;
+			next if grep { $q eq $_ } @pkgs;
+			warn "Package $q depends on version $v; not removing\n"
+				unless ($quiet);
+			@pkgs = ();
+			close FH;
+			last DEPENDENCY;
+		}
+		close FH;
+	}
+	next unless (@pkgs);
+	if ($verbose) {
+		print 'About to remove: ', join(' ', @pkgs), "\n";
+	}
+	unless ($dry_run) {
+		system '/usr/bin/apt-get', @yes, 'purge', @pkgs;
+	}
+}
