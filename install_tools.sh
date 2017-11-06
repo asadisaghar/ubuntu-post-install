@@ -5,6 +5,10 @@ apt-get -y upgrade
 apt-get install -y emacs
 apt-get install -y chromium-browser
 
+# setup the work env
+gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 5
+gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ vsize 5
+
 #install some necessary development tools, image/video I/O, GUI operations etc.
 apt-get install build-essential cmake git unzip pkg-config
 apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
