@@ -19,4 +19,7 @@ git clone https://github.com/tensorflow/tensorflow.git
 ./configure
 #answer questions!
 
-bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
+bazel build --config=opt --config=cuda --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" //tensorflow/tools/pip_package:build_pip_package
+bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+sudo pip2 install /tmp/tensorflow_pkg/tensorflow-1.4.0rc1-cp27-cp27mu-linux_x86_64.whl
+
