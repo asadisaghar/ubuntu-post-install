@@ -5,6 +5,7 @@ apt-get -y upgrade
 apt-get install -y emacs
 apt-get install -y chromium-browser
 apt-get install curl
+apt-get install xclip
 
 # setup the work env
 gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 5
