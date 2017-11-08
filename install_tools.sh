@@ -2,10 +2,7 @@ apt-get update
 apt-get -y upgrade
 
 #first things first
-apt-get install -y emacs
-apt-get install -y chromium-browser
-apt-get install curl
-apt-get install xclip
+apt-get install -y emacs chromium-browser curl xclip gimp
 
 # setup the work env
 gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 5
