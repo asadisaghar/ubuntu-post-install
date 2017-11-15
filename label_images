@@ -1,0 +1,7 @@
+git clone --recursive https://github.com/tzutalin/ImageNet_Utils.git
+mkvirtualenv Imagenet_utils
+workon Imagenet_utils
+sudo apt-get install pyqt4-dev-tools
+pip install Pillow
+cd ImageNet_Utils/labelImgGUI
+make all
