@@ -1,25 +1,25 @@
-apt-get update
-apt-get -y upgrade
+sudo apt-get update
+sudo apt-get -y upgrade
 
 #first things first
-apt-get install -y emacs chromium-browser curl xclip gimp
+sudo apt-get install -y emacs chromium-browser curl xclip gimp
 
 # setup the work env
 gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 5
 gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ vsize 5
 
 #install some necessary development tools, image/video I/O, GUI operations etc.
-apt-get install build-essential cmake git unzip pkg-config
-apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
-apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
-apt-get install libxvidcore-dev libx264-dev
-apt-get install libgtk-3-dev
-apt-get install libhdf5-serial-dev graphviz
-apt-get install libopenblas-dev libatlas-base-dev gfortran
-apt-get install python-tk python3-tk python-imaging-tk
+sudo apt-get install build-essential cmake git unzip pkg-config
+sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+sudo apt-get install libxvidcore-dev libx264-dev
+sudo apt-get install libgtk-3-dev
+sudo apt-get install libhdf5-serial-dev graphviz
+sudo apt-get install libopenblas-dev libatlas-base-dev gfortran
+sudo apt-get install python-tk python3-tk python-imaging-tk
 
 #install both python2 and python3
-apt-get install python2.7-dev python3-dev
+sudo apt-get install python2.7-dev python3-dev
 
 #install pip
 wget https://bootstrap.pypa.io/get-pip.py
