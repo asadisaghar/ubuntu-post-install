@@ -9,25 +9,25 @@ gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 5
 gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ vsize 5
 
 #install some necessary development tools, image/video I/O, GUI operations etc.
-sudo apt-get install build-essential cmake git unzip pkg-config
-sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
-sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
-sudo apt-get install libxvidcore-dev libx264-dev
-sudo apt-get install libgtk-3-dev
-sudo apt-get install libhdf5-serial-dev graphviz
-sudo apt-get install libopenblas-dev libatlas-base-dev gfortran
-sudo apt-get install python-tk python3-tk python-imaging-tk
+sudo apt-get install -y build-essential cmake git unzip pkg-config
+sudo apt-get install -y libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
+sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+sudo apt-get install -y libxvidcore-dev libx264-dev
+sudo apt-get install -y libgtk-3-dev
+sudo apt-get install -y libhdf5-serial-dev graphviz
+sudo apt-get install -y libopenblas-dev libatlas-base-dev gfortran
+sudo apt-get install -y python-tk python3-tk python-imaging-tk
 
 #install both python2 and python3
-sudo apt-get install python2.7-dev python3-dev
+sudo apt-get install -y python2.7-dev python3-dev
 
 #install pip
 wget https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
-python3 get-pip.py
+sudo python get-pip.py
+sudo python3 get-pip.py
 
 #install virtualenv and virtualenvwrapper
-pip install virtualenv virtualenvwrapper
+sudo pip install virtualenv virtualenvwrapper
 rm -rf ~/.cache/pip get-pip.py
 echo '# virtualenv and virtualenvwrapper' >> ~/.bashrc
 echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
