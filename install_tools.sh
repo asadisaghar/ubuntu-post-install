@@ -3,6 +3,7 @@ sudo apt-get -y upgrade
 
 #first things first
 sudo apt-get install -y emacs chromium-browser curl xclip gimp
+sudo snap install code --classic
 
 # setup the work env
 gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 5
