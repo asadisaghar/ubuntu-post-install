@@ -48,19 +48,19 @@ sudo apt-get install -y libdc1394-22-dev libavcodec-dev libavformat-dev libswsca
 sudo apt-get install -y libtbb-dev libeigen3-dev
 # Python:
 sudo apt-get install -y python-dev python-tk python-numpy python3-dev python3-tk python3-numpy
-# Java:
-sudo apt-get install -y ant default-jdk
-# Documentation:
-sudo apt-get install -y doxygen
-sudo apt-get install -y unzip wget
-wget https://github.com/opencv/opencv/archive/3.3.0.zip
-unzip 3.3.0.zip
-rm 3.3.0.zip
-mv opencv-3.3.0 OpenCV
-cd OpenCV
-mkdir build
-cd build
-cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON -DENABLE_PRECOMPILED_HEADERS=OFF ..
-make -j4
-sudo make install
-sudo ldconfig
+# # Java:
+# sudo apt-get install -y ant default-jdk
+# # Documentation:
+# sudo apt-get install -y doxygen
+# sudo apt-get install -y unzip wget
+# wget https://github.com/opencv/opencv/archive/3.3.0.zip
+# unzip 3.3.0.zip
+# rm 3.3.0.zip
+# mv opencv-3.3.0 OpenCV
+# cd OpenCV
+# mkdir build
+# cd build
+# cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON -DENABLE_PRECOMPILED_HEADERS=OFF ..
+# make -j4
+# sudo make install
+# sudo ldconfig
